@@ -1,0 +1,7 @@
+include AUTHORS.rst
+include CONTRIBUTING.rst
+include LICENSE
+include README.rst
+recursive-include charts/static *
+recursive-include charts/templates *
+recursive-include docs *
