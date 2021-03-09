@@ -30,7 +30,9 @@ class BarChart(ChartObjectMixin):
             "labels": self.labels,
             "datasets": [
                 {
-                    "label": self.tooltips if len(self.tooltips) > 0 else self.data_label,
+                    "label": self.tooltips
+                    if len(self.tooltips) > 0
+                    else self.data_label,
                     "backgroundColor": self.get_colors,
                     "data": self.data,
                 }
@@ -39,14 +41,12 @@ class BarChart(ChartObjectMixin):
 
 
 class HorizontalBarChart(BarChart):
-
     def __init__(self):
         super().__init__()
         self.type_chart = "horizontalBar"
 
 
 class PieChart(ChartObjectMixin):
-
     def __init__(self):
         super().__init__()
         self.type_chart = "pie"
@@ -79,8 +79,9 @@ class PolarAreaChart(PieChart):
 
 
 class LineChart(ChartObjectMixin):
-
-    type_chart = "line"
+    def __init__(self):
+        super().__init__()
+        self.type_chart = "line"
 
     def create_node(self, label, data, fill=False, color=None):
         """
@@ -113,18 +114,24 @@ class LineChart(ChartObjectMixin):
         }
         return context
 
-    def generate_dataset(self, labels, data):
-        dataset = {"labels": labels, "datasets": data}
+    def generate_dataset(self):
+        return {"labels": self.labels, "datasets": self.data}
 
-        return {
-            "type": self.type_chart,
-            "data": json.dumps(dataset, ensure_ascii=False),
-            "options": json.dumps(self.generate_options(), ensure_ascii=False),
-        }
+    def build_chart(self):
+        return json.dumps(
+            {
+                "type": self.type_chart,
+                "data": self.generate_dataset(),
+                "options": self.generate_options(),
+            },
+            ensure_ascii=False,
+        )
 
 
 class GroupChart(ChartObjectMixin):
-    type_chart = "bar"
+    def __init__(self):
+        super().__init__()
+        self.type_chart = "bar"
 
     def create_node(self, label, data, color=None):
         """
@@ -136,19 +143,24 @@ class GroupChart(ChartObjectMixin):
         color_data = color if color is not None else self._get_color()
         return {"label": label, "backgroundColor": color_data, "data": list(data)}
 
-    def generate_dataset(self, labels, data):
-        dataset = {"labels": list(labels), "datasets": list(data)}
+    def generate_dataset(self):
+        dataset = {"labels": self.labels, "datasets": self.data}
 
-        return {
-            "type": self.type_chart,
-            "data": json.dumps(dataset, ensure_ascii=False),
-            "options": json.dumps(self.generate_options(), ensure_ascii=False),
-        }
+    def build_chart(self):
+        return json.dumps(
+            {
+                "type": self.type_chart,
+                "data": self.generate_dataset(),
+                "options": self.generate_options(),
+            },
+            ensure_ascii=False,
+        )
 
 
 class RadarChart(ChartObjectMixin):
-
-    type_chart = "radar"
+    def __init__(self):
+        super().__init__()
+        self.type_chart = "radar"
 
     def create_node(self, label, data, color=None):
         color_data = color if color is not None else self._get_rgba_from_hex(color)
@@ -162,11 +174,15 @@ class RadarChart(ChartObjectMixin):
             "data": list(data),
         }
 
-    def generate_dataset(self, labels, data):
-        dataset = {"labels": list(labels), "datasets": list(data)}
+    def generate_dataset(self):
+        return {"labels": self.labels, "datasets": self.data}
 
-        return {
-            "type": self.type_chart,
-            "data": json.dumps(dataset, ensure_ascii=False),
-            "options": json.dumps(self.generate_options(), ensure_ascii=False),
-        }
+    def build_chart(self):
+        return json.dumps(
+            {
+                "type": self.type_chart,
+                "data": self.generate_dataset(),
+                "options": self.generate_options(),
+            },
+            ensure_ascii=False,
+        )

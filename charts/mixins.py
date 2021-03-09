@@ -1,5 +1,5 @@
-import random
 import json
+import random
 from abc import ABC, abstractmethod
 
 
@@ -27,10 +27,7 @@ class BaseChartView(ABC):
             "responsive": True,
             "maintainAspectRatio": self.aspect_ratio,
             "legend": {"display": self.legend},
-            "title": {
-                "display": True if self.title else False,
-                "text": self.title,
-            },
+            "title": {"display": True if self.title else False, "text": self.title},
         }
 
     @abstractmethod
@@ -54,13 +51,16 @@ class BaseChartView(ABC):
 
     def get_context_data(self, **kwargs):
         context = {}
-        context["chart"] = json.dumps({
-            "type": self.type_chart,
-            "data": self.generate_values(),
-            "options": self.generate_options(),
-        }, ensure_ascii=False)
+        context["chart"] = json.dumps(
+            {
+                "type": self.type_chart,
+                "data": self.generate_values(),
+                "options": self.generate_options(),
+            },
+            ensure_ascii=False,
+        )
 
-        context["tooltips"] = self.get_tooltips() if self.get_tooltips() else " ",
+        context["tooltips"] = (self.get_tooltips() if self.get_tooltips() else " ",)
 
         if not self.aspect_ratio:
             context["width"] = self.width
@@ -75,7 +75,6 @@ class BaseChartView(ABC):
 
 
 class ChartObjectMixin(ABC):
-
     def __init__(self):
         # principal data chart
         self.data = []
@@ -134,9 +133,14 @@ class ChartObjectMixin(ABC):
         return "rgba({},{},{},0.6)".format(*map(lambda x: x, rgb))
 
     def build_chart(self):
-        self._colors = self._colors if self._colors else self._generate_colors(self.labels)
-        return json.dumps({
-            "type": self.type_chart,
-            "data": self.generate_dataset(),
-            "options": self.generate_options(),
-        }, ensure_ascii=False)
+        self._colors = (
+            self._colors if self._colors else self._generate_colors(self.labels)
+        )
+        return json.dumps(
+            {
+                "type": self.type_chart,
+                "data": self.generate_dataset(),
+                "options": self.generate_options(),
+            },
+            ensure_ascii=False,
+        )

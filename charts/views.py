@@ -35,7 +35,8 @@ class BarChartView(BaseChartView):
         dataset = {
             "label": self.get_tooltips() if self.get_tooltips() else "",
             "backgroundColor": [self._get_color()] * len(values)
-            if not self.colors else self.colors,
+            if not self.colors
+            else self.colors,
             "data": values,
         }
         collection.append(dataset)
@@ -66,10 +67,7 @@ class RadarChartView(BaseChartView):
         }
 
     def _generate_data(self):
-        return {
-            "labels": self.generate_labels(),
-            "datasets": self.generate_values()
-        }
+        return {"labels": self.generate_labels(), "datasets": self.generate_values()}
 
 
 class LineChartView(BaseChartView):

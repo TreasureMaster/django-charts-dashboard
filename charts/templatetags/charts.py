@@ -9,5 +9,5 @@ def render_chart(context, values):
         "chart": values,
         "tooltips": list(*context["tooltips"]),
         "height": context.get("height"),
-        "width": context.get("width")
+        "width": context.get("width"),
     }

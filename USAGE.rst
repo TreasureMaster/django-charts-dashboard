@@ -318,13 +318,13 @@ For use radar charts as a object in your view, do this:
             chart = RadarChart()
             chart.title = "Example charts title"
 
-            labels = ["test 1","test 2", "test 3", "test 4"]
-            data = []
-            data.append(chart.create_node("Example 1", [5,8,9,64,3]))
-            data.append(chart.create_node("Example 2", [10,1,19,6,13]))
-            ....
+            chart.labels = ["test 1","test 2", "test 3", "test 4"]
+            chart.data = [
+                chart.create_node("Example 1", [5,8,9,64,3]),
+                chart.create_node("Example 2", [10,1,19,6,13])
+            ]
 
-            return radarchart.generate_dataset(labels, data)
+            return chart.build_chart()
 
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
@@ -349,12 +349,12 @@ LineChart
             chart = LineChart()
             chart.title = "Example charts title"
 
-            labels = ["test 1","test 2", "test 3", "test 4"]
-            data = []
-            data.append(chart.create_node("Example 1", [5,8,9,64,3]))
-            ....
+            chart.labels = ["test 1","test 2", "test 3", "test 4"]
+            chart.data = [
+                chart.create_node("Example 1", [5,8,9,64,3])
+            ]
 
-            return chart.generate_dataset(labels, data)
+            return chart.build_chart()
 
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
@@ -381,12 +381,14 @@ Just use LineChart and define fill parameter as a True, you can define color to 
             chart = LineChart()
             chart.title = "Example charts title"
 
-            labels = ["test 1","test 2", "test 3", "test 4"]
-            data = []
-            data.append(chart.create_node("Example 1", [5,8,9,64,3], True))
-            ....
+            chart.labels = ["test 1","test 2", "test 3", "test 4"]
+            chart.data = [
+                chart.create_node("Example 1", [5,8,9,64,3], True), # create a node for line chart
+            ]
 
-            return chart.generate_dataset(labels, data)
+            # True option in lines above is fill option (False or True)
+
+            return chart.build_chart()
 
         def get_context_data(self, **kwargs):
             context = super().get_context_data(**kwargs)
