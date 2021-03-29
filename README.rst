@@ -1,20 +1,20 @@
 =============================
-django-charts
+django-charts-dashboard
 =============================
 
 Documentation
 -------------
 
-The full documentation is at https://django-charts.readthedocs.io/en/latest/
+The full documentation is at https://django-charts-dashboard.readthedocs.io/en/latest/
 
 Quickstart
 ----------
 
-Install django-charts::
+Install django-charts-dashboard::
 
-    pip install django-charts
+    pip install django-charts-dashboard
     or
-    pipenv install django-charts
+    pipenv install django-charts-dashboard
 
 Add it to your `INSTALLED_APPS`:
 
@@ -22,7 +22,7 @@ Add it to your `INSTALLED_APPS`:
 
     INSTALLED_APPS = (
         ...
-        'charts',
+        'charts_dashboard',
         ...
     )
 
